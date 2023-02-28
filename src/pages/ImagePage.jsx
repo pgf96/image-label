@@ -5,8 +5,8 @@ import './ImagePage.css'
 export default function ImagePage({ annotationData, setAnnotationData }) {
 
     const imageSrc = "https://i.redd.it/vz16evolc7ka1.jpg"
-    const width = '57vw'
-    const height = '81vh'
+    const width = '1000px'
+    const height = '700px'
 
     return (
         <div className="ImagePage">
