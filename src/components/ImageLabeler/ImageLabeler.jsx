@@ -121,7 +121,7 @@ export default function ImageLabeler({ annotationData, setAnnotationData, height
                     type={'elbow'} />
                   <CircleSubject
                     stroke={'black'}
-                    radius={16} />
+                    radius={3} />
                   <Label
                     title={annotation.title}
                     fontColor={'white'}
