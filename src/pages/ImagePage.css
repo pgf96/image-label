@@ -1,0 +1,7 @@
+.ImagePage {
+    display: grid;
+    max-width: 100%;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    grid-column-gap: 2px;
+}
