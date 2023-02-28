@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export default function Cursor({clickCoordinates ,setClickCoordinates, setAnnotationData, inputRef, svgRef}) {
+export default function Cursor({setClickCoordinates, inputRef, svgRef}) {
     function handleMouseClick(e) {
         // if the focused element is the input do nothing
         if (document.activeElement === inputRef.current) {
