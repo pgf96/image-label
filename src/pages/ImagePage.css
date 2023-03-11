@@ -1,7 +1,21 @@
 .ImagePage {
     display: grid;
     max-width: 100%;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr .5fr;
     justify-content: center;
     grid-column-gap: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 100%;
+    position: relative;
+}
+
+.AnnotationInfo {
+    text-align: left;
+    padding-left: none;
+    list-style: none;
+}
+
+ul {
+    padding-left: 0;
 }
