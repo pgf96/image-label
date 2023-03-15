@@ -1,8 +1,8 @@
 .ImagePage {
     display: grid;
     /* width: 100%; */
-    /* grid-template-columns: 60% 40%; */
-    grid-template-columns: 1fr .6fr;
+    grid-template-columns: 60% 40%;
+    /* grid-template-columns: 1fr .6fr; */
     grid-column-gap: 2px;
     padding-left: 10px;
     padding-right: 10px;
