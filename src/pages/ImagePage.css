@@ -1,12 +1,12 @@
 .ImagePage {
     display: grid;
-    max-width: 100%;
-    grid-template-columns: 1fr .5fr;
-    justify-content: center;
+    /* width: 100%; */
+    /* grid-template-columns: 60% 40%; */
+    grid-template-columns: 1fr .6fr;
     grid-column-gap: 2px;
     padding-left: 10px;
     padding-right: 10px;
-    height: 100%;
+    height: auto;
     position: relative;
 }
 
@@ -19,3 +19,23 @@
 ul {
     padding-left: 0;
 }
+
+@media (max-width: 1024px) {
+    .ImagePage {
+      grid-template-columns: 1fr;
+      grid-row-gap: 20px;
+    }
+    .AnnotationInfo {
+      grid-row: 2;
+    }
+  }
+
+@media (max-width: 768px) {
+    .ImagePage {
+      grid-template-columns: 1fr;
+      grid-row-gap: 20px;
+    }
+    .AnnotationInfo {
+      grid-row: 2;
+    }
+  }

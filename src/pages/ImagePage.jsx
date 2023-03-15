@@ -2,45 +2,74 @@ import ImageLabeler from "../components/ImageLabeler/ImageLabeler"
 import { useState, useEffect } from "react"
 import './ImagePage.css'
 import { useMediaQuery } from 'react-responsive'
-import { withScreenSize } from "@visx/responsive"
+import { ParentSize, withScreenSize } from "@visx/responsive"
+import { useMemo } from "react"
+import { scaleLinear } from "@visx/scale"
 
 
 export default function ImagePage({ annotationData, setAnnotationData }) {
 
 
-    const [unsavedAnnotation, setUnsavedAnnotation] = useState([])
+    const [savedAnnotation, setSavedAnnotation] = useState([])
     // const [width, setWidth] = useState(window.innerWidth)
 
     const imageSrc = "https://i.redd.it/vz16evolc7ka1.jpg"
 
-    const isDesktopOrLaptop = useMediaQuery({
-        query: '(min-width: 1024px)'
-      
-    })
-    let width, height
-    if (isDesktopOrLaptop) {
-        width = '900px'
-        height = '100%'
+    const largest = useMediaQuery({query: '(min-width: 1540px)'})
+    const large = useMediaQuery({query: '(min-width: 1024px)'})
+    const medium = useMediaQuery({query: '(min-width: 768px)'})
+    const small = useMediaQuery({query: '(min-width: 480px)'})
+
+    const breakpoints = []
+
+    let width,height
+    if (largest) {
+        width = 900
+        height = 680
+    } else if (large) {
+        width = 850
+        height = 643
+    } else if (medium) {
+        width = 600
+        height = 454
+    } else if (small) {
+        width = 500
+        height = 378
     } else {
-        width = '760px'
-        height = '100%'
+        width = 360
+        height = 272
     }
-
-    // let height = '100%'
-    // useEffect(function() {
-    //     function getWidth() {
-    //         setWidth(window.innerWidth)
-    //         console.log(width)
-    //     }
-    //     window.addEventListener('resize', getWidth)
-
-    //     return () =>window.removeEventListener('resize', getWidth)
-    // },[])
-
+        
+    const xScale = useMemo(
+        () =>
+          scaleLinear({
+            domain: [0, 900],
+            range: [0, width]
+          }),
+        [width]
+      );
+      
+      const yScale = useMemo(
+        () =>
+          scaleLinear({
+            domain: [0, 681],
+            range: [0, height]
+          }),
+        [height]
+      );
 
     return (
         <div className="ImagePage">
-            {width && (<ImageLabeler width={width} height={height} unsavedAnnotation={unsavedAnnotation} setUnsavedAnnotation={setUnsavedAnnotation} annotationData={annotationData} setAnnotationData={setAnnotationData} />)}
+            <ImageLabeler 
+            width={width} 
+            height={height}  
+            xScale={xScale} 
+            yScale={yScale}
+            savedAnnotation={savedAnnotation} 
+            setSavedAnnotation={setSavedAnnotation} 
+            annotationData={annotationData} 
+            setAnnotationData={setAnnotationData}
+            /> 
             <div className="AnnotationInfo">
                 <h1> Real time annotation info</h1>
                 <ul>
@@ -55,10 +84,10 @@ export default function ImagePage({ annotationData, setAnnotationData }) {
                 </ul>
                 <h1>Saved annotation info</h1>
                 <ul>
-                    {unsavedAnnotation && unsavedAnnotation.map(unsavedA => 
+                    {savedAnnotation && savedAnnotation.map(savedA => 
                         <p>
-                            {Object.keys(unsavedA).map(key =>
-                                    `${key}: ${unsavedA[key]}`
+                            {Object.keys(savedA).map(key =>
+                                    `${key}: ${savedA[key]}`
                                 ).join(', ')}
                         </p> 
                     )
