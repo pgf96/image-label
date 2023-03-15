@@ -10,7 +10,7 @@ function App() {
   const [annotationData, setAnnotationData] = useState([
     {
       title: 'Nintendo Switch',
-      x: 100,
+      x: 191,
       y: 471,
       dx: -1,
       dy: -123.99,
