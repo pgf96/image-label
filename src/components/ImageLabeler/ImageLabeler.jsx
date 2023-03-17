@@ -1,8 +1,6 @@
 import Cursor from "../Cursor/Cursor";
 import { useState, useEffect, useRef } from "react";
 import { EditableAnnotation, Label, Connector, CircleSubject } from "@visx/annotation";
-import { scaleLinear } from "@visx/scale";
-import { useMemo } from "react";
 
 export default function ImageLabeler({ annotationData, setAnnotationData, height, width, xScale, yScale, savedAnnotation, setSavedAnnotation }) {
 
@@ -70,7 +68,7 @@ export default function ImageLabeler({ annotationData, setAnnotationData, height
   return (
     <div>
       <Cursor xScale={xScale} yScale={yScale} width={width} svgRef={svgRef} inputRef={inputRef} setClickCoordinates={setClickCoordinates} setAnnotationData={setAnnotationData} />
-      <div style={{ textAlign: 'left' }} >
+      <div style={{ textAlign: 'left', width: width}} >
         The mouse is at position{' '}
         <b>({(clickCoordinates.x)}, {(clickCoordinates.y)})</b>
         <div>
@@ -94,13 +92,17 @@ export default function ImageLabeler({ annotationData, setAnnotationData, height
         <button onClick={handleSaveAnnotations}> save annotations </button>
       </div>
 
-      <div style={{ display: 'flex', margin: 'auto', position: 'relative', width: width, alignItems: "center", justifyContent: "center" }}>
+      <div style={{ position: 'relative', width: width }}>
         <svg
           ref={svgRef}
           width={width}
           height={height}
         >
-          <image ref={imageRef} href={imageSrc} width={width} />
+          <image ref={imageRef} href={imageSrc}
+          //  width={width}
+           width='100%'
+           height='100%'
+           />
           {/* {unsavedAnnotation.map((annotation) => ( */}
           {annotationData.map((annotation) => (
             <EditableAnnotation
@@ -124,10 +126,10 @@ export default function ImageLabeler({ annotationData, setAnnotationData, height
               }}
             >
               <Connector
-                stroke={'red'}
+                stroke={'rgba(0, 0, 0, .7)'}
                 type={'elbow'} />
               <CircleSubject
-                stroke={'red'}
+                stroke={'black'}
                 radius={3} />
               <Label
                 maxWidth={xScale(150)}
@@ -135,8 +137,8 @@ export default function ImageLabeler({ annotationData, setAnnotationData, height
                 title={annotation.title}
                 fontColor={'white'}
                 showBackground={true}
-                backgroundFill={'rgba(0, 0, 0, 0.3)'}
-                anchorLineStroke={'black'}
+                backgroundFill={'rgba(0, 0, 0, 0.2)'}
+                anchorLineStroke={'rgba(0, 0, 0, 0.6)'}
                 backgroundPadding={xScale(12)}
               />
             </EditableAnnotation>
