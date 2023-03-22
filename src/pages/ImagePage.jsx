@@ -15,7 +15,7 @@ export default function ImagePage({ annotationData, setAnnotationData }) {
     const small = useMediaQuery({query: '(min-width: 480px)'})
 
     const width = largest ? 900 : large ? 850 : medium ? 600 : small ? 500 : 360;
-    const height = largest ? 680 : large ? 643 : medium ? 454 : small ? 378 : 272;
+    const height = largest ? 675 : large ? 643 : medium ? 454 : small ? 378 : 272;
     
         
     const xScale = useMemo(
