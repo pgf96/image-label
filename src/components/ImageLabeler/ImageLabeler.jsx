@@ -7,6 +7,8 @@ export default function ImageLabeler({ annotationData, setAnnotationData, height
   const imageSrc = "https://i.redd.it/vz16evolc7ka1.jpg"
   const [isEditable, setIsEditable] = useState(false)
   const [clickCoordinates, setClickCoordinates] = useState([]);
+  const [svgWidth, setSvgWidth] = useState(1)
+  const [svgHeight, setSvgHeight] = useState(1)
 
   const [newItem, setNewItem] = useState({
     title: '',
@@ -65,9 +67,41 @@ export default function ImageLabeler({ annotationData, setAnnotationData, height
     return isEditable
   }
 
+  function getImageDimension(aspectRatio) {
+    if (Math.abs(aspectRatio - (3 / 4)) < Math.abs(aspectRatio - (4 / 3))) {
+        return {width: 680, height: 900}
+    } else {
+        return {width: width, height: height}
+    }
+}
+
+  useEffect(() => {
+    const img = new Image()
+    img.src = imageSrc
+
+    function getDimensions() {
+        const naturalWidth = img.naturalWidth
+        const naturalHeight = img.naturalHeight
+        const aspectRatio = naturalWidth/naturalHeight
+        console.log(`Aspect Ratio ${aspectRatio}`)
+        const width = getImageDimension(aspectRatio).width
+        const height = getImageDimension(aspectRatio).height
+        console.log(`width:${width}, height:${height}`)
+        setSvgWidth(width)
+        setSvgHeight(height)
+        // setLoaded(true)
+    }
+
+    img.addEventListener('load', getDimensions)
+    return () => {
+        img.removeEventListener('load', getDimensions)
+        
+    }
+  },[width,height])
+
   return (
     <div>
-      <Cursor xScale={xScale} yScale={yScale} width={width} svgRef={svgRef} inputRef={inputRef} setClickCoordinates={setClickCoordinates} setAnnotationData={setAnnotationData} />
+      <Cursor xScale={xScale} yScale={yScale} svgRef={svgRef} inputRef={inputRef} setClickCoordinates={setClickCoordinates} setAnnotationData={setAnnotationData} />
       <div style={{ textAlign: 'left', width: width}} >
         The mouse is at position{' '}
         <b>({(clickCoordinates.x)}, {(clickCoordinates.y)})</b>
@@ -92,11 +126,11 @@ export default function ImageLabeler({ annotationData, setAnnotationData, height
         <button onClick={handleSaveAnnotations}> save annotations </button>
       </div>
 
-      <div style={{ position: 'relative', width: width }}>
+      <div style={{ position: 'relative', width: svgWidth }}>
         <svg
           ref={svgRef}
-          width={width}
-          height={height}
+          width={svgWidth}
+          height={svgHeight}
         >
           <image ref={imageRef} href={imageSrc}
           //  width={width}
