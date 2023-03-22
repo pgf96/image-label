@@ -12,8 +12,8 @@ export default function Cursor({ setClickCoordinates, inputRef, svgRef, xScale, 
       const imageRect = svgRef.current.getBoundingClientRect();
       setClickCoordinates((prevState) => ({
         ...prevState,
-        x: xScale.invert(e.clientX - imageRect.left),
-        y: yScale.invert(e.clientY - imageRect.top)
+        x: Number(xScale.invert(e.clientX - imageRect.left).toFixed(3)),
+        y: Number(yScale.invert(e.clientY - imageRect.top).toFixed(3))
       }))
       // last event of the click is to focus on input element
       console.log(xScale(1))
