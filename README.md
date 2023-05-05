@@ -8,3 +8,6 @@ https://airbnb.io/visx/docs/annotation
 
 ## Built with
 React, visx,
+
+## Live Demo
+https://codesandbox.io/s/image-label-demo-psu5cx
